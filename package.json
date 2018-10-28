@@ -2,7 +2,7 @@
   "name": "coding-examples",
   "title": "Coding Examples",
   "description": "Provides canonical examples of class and function usage.",
-  "publisher": "mhewett99 @ sourcegraph, mhewett @ github",
+  "publisher": "mhewett99",
   "activationEvents": [
     "*"
   ],

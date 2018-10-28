@@ -76,7 +76,7 @@ export function activate(): void {
                 const funcOrClass = getTokenAt(doc, pos);
                 const pkg = getGoPackageFor(funcOrClass);
 
-                return ajax({
+                return await ajax({
                     method: 'GET',
                     url: `http://${goHost}:${goPort}/go/${pkg}/${funcOrClass}?format=text`,
                     responseType: 'text/plain',
@@ -87,11 +87,12 @@ export function activate(): void {
                             response && {
                                 contents: {
                                     // Use Go syntax highlighting
-                                    value: '```go\n' + response + '\n```',
+                                    value: '```go\n' + response.response + '\n```',
                                     kind: sourcegraph.MarkupKind.Markdown
                                 }
                             }
-                        )
+                        ),
+                        reason => (null)  // If failed, return null so Sourcegraph knows we don't have any response
                     )
             }
         });
