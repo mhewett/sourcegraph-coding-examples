@@ -9,14 +9,14 @@ import {TextDocument} from 'sourcegraph';
 const goIndex = require('./goIndex.json');
 
 interface FullSettings {
-    'show-documentation': boolean;
-    'show-example': boolean;
+    'provider.go.protocol': string;
     'provider.go.host': string;
     'provider.go.port': string;
 }
 
 type Settings = Partial<FullSettings>;
 
+const DEFAULT_GO_EXAMPLE_SERVER_PROTOCOL = 'http';
 const DEFAULT_GO_EXAMPLE_SERVER_HOST = 'localhost';
 const DEFAULT_GO_EXAMPLE_SERVER_PORT = '8844';
 
@@ -62,6 +62,7 @@ function getGoPackageFor(symbol: string|null): string {
 export function activate(): void {
 
     function afterActivate(): void {
+        const goProtocol = sourcegraph.configuration.get<Settings>().get('provider.go.protocol') || DEFAULT_GO_EXAMPLE_SERVER_PROTOCOL;
         const goHost = sourcegraph.configuration.get<Settings>().get('provider.go.host') || DEFAULT_GO_EXAMPLE_SERVER_HOST;
         const goPort = sourcegraph.configuration.get<Settings>().get('provider.go.port') || DEFAULT_GO_EXAMPLE_SERVER_PORT;
         // const showDocumentation = sourcegraph.configuration.get<Settings>().get('show-documentation');
@@ -78,7 +79,7 @@ export function activate(): void {
 
                 return await ajax({
                     method: 'GET',
-                    url: `http://${goHost}:${goPort}/go/${pkg}/${funcOrClass}?format=text`,
+                    url: `${goProtocol}://${goHost}:${goPort}/go/${funcOrClass}?package=${pkg}&format=text`,
                     responseType: 'text/plain',
                 })
                     .toPromise()
