@@ -1,6 +1,10 @@
 # Coding Examples
 
-This is a Sourcegraph extension that provides canonical examples of class and function usage.
+This is a Sourcegraph extension that provides canonical examples of class and function usage in a Hover provider.
+
+It currently only works for Go code, but can be extended to other languages.
+
+This extension needs access to a Go examples provider.  One option is to run [mhewett/go-example-server](https://github.com/mhewett/go-example-server) on your local machine.
 
 ## Prerequisites
 
@@ -29,6 +33,6 @@ npm run typecheck
 src extensions publish
 ```
 
-## Sourecgraph extension API
+## Sourcegraph extension API
 
 Visit the [Sourcegraph extension documentation](https://github.com/sourcegraph/sourcegraph-extension-docs) and check out some [Sourcegraph extension samples](https://github.com/sourcegraph/sourcegraph-extension-samples).
