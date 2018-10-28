@@ -1,6 +1,6 @@
 # Coding Examples
 
-Provides canonical examples of class and function usage.
+This is a Sourcegraph extension that provides canonical examples of class and function usage.
 
 ## Prerequisites
 
